@@ -572,6 +572,42 @@ table tr:hover {
         opacity: 0;
     }
 }
+/* Анимации для уведомлений */
+@keyframes notificationSlideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes notificationSlideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Стили для уведомлений */
+.custom-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    animation: notificationSlideIn 0.3s ease forwards;
+}
+
+.custom-notification.slide-out {
+    animation: notificationSlideOut 0.3s ease forwards;
+}
+
 
 
 
