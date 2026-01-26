@@ -154,7 +154,7 @@ header {
 /* Главный баннер */
 .main-banner {
     background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
-                url('your-image-path/ice-fishing-bg.jpg');
+                url('https://icefishing.vercel.app/ice-fishing-bg.jpg');
     background-size: cover;
     background-position: center;
     padding: 50px 20px; /* Уменьшен padding */
@@ -521,4 +521,5 @@ table tr:hover {
         font-size: 14px;
     }
 }
+
 
