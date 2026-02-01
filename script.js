@@ -1,25 +1,17 @@
-// =========== УНИВЕРСАЛЬНЫЙ КОД БЕЗ ВСТРОЕННЫХ СКРИПТОВ ===========
-
-// Ждем полной загрузки DOM
+// =========== ОЖИДАНИЕ ЗАГРУЗКИ DOM ===========
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM загружен, инициализируем скрипты...');
+    console.log('DOM загружен, инициализация скриптов...');
     
-    // 1. Инициализация мобильного меню
+    // Инициализация всех функций
     initMobileMenu();
-    
-    // 2. Инициализация кнопок копирования промокода
     initPromoCodeButtons();
-    
-    // 3. Инициализация плавной прокрутки
     initSmoothScroll();
-    
-    // 4. Инициализация анимаций
     initAnimations();
-    
-    // 5. Инициализация фиксированного хедера
     initFixedHeader();
+    initVideoPlayers();
+    initInteractiveElements();
     
-    console.log('Все скрипты инициализированы');
+    console.log('Все скрипты успешно инициализированы');
 });
 
 // =========== 1. МОБИЛЬНОЕ МЕНЮ ===========
@@ -40,10 +32,8 @@ function initMobileMenu() {
         // Блокировка скролла при открытом меню
         if (navLinks.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
-            document.body.style.height = '100vh';
         } else {
             document.body.style.overflow = '';
-            document.body.style.height = '';
         }
     });
     
@@ -53,7 +43,6 @@ function initMobileMenu() {
             mobileMenuBtn.classList.remove('active');
             navLinks.classList.remove('active');
             document.body.style.overflow = '';
-            document.body.style.height = '';
         });
     });
     
@@ -65,7 +54,6 @@ function initMobileMenu() {
             mobileMenuBtn.classList.remove('active');
             navLinks.classList.remove('active');
             document.body.style.overflow = '';
-            document.body.style.height = '';
         }
     });
     
@@ -75,83 +63,58 @@ function initMobileMenu() {
             mobileMenuBtn.classList.remove('active');
             navLinks.classList.remove('active');
             document.body.style.overflow = '';
-            document.body.style.height = '';
         }
     });
 }
 
 // =========== 2. КОПИРОВАНИЕ ПРОМОКОДА ===========
 function initPromoCodeButtons() {
-    // Находим все кнопки копирования
-    const copyButtons = document.querySelectorAll('.copy-button, .copy-promo-btn, [data-copy-promo]');
+    const copyButtons = document.querySelectorAll('.copy-button, [data-copy-promo]');
     
-    if (copyButtons.length === 0) {
-        console.warn('Кнопки копирования не найдены');
-        return;
-    }
+    if (copyButtons.length === 0) return;
     
     copyButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Ищем промокод в ближайшем контейнере
-            const promoContainer = this.closest('.promo-container, .content-block, [data-promo-container]');
+            // Поиск промокода
             let promoCode = '';
+            const promoElement = document.querySelector('.promo-code-display, #promoCode');
             
-            // Вариант 1: Промокод в data-атрибуте кнопки
-            if (this.dataset.promoCode) {
-                promoCode = this.dataset.promoCode;
-            }
-            // Вариант 2: Промокод в ближайшем элементе .promo-code-display
-            else if (promoContainer) {
-                const promoElement = promoContainer.querySelector('.promo-code-display, [data-promo-code]');
-                if (promoElement) {
-                    promoCode = promoElement.textContent.trim();
-                }
-            }
-            // Вариант 3: Промокод в глобальном элементе
-            else {
-                const globalPromoElement = document.querySelector('.promo-code-display, [data-promo-code], #promoCode');
-                if (globalPromoElement) {
-                    promoCode = globalPromoElement.textContent.trim();
-                }
-            }
-            
-            // Если промокод найден - копируем
-            if (promoCode) {
-                copyTextToClipboard(promoCode, this);
+            if (promoElement) {
+                promoCode = promoElement.textContent.trim();
             } else {
-                console.error('Промокод не найден');
-                showNotification('Ошибка: промокод не найден', 'error');
+                // Резервный промокод
+                promoCode = 'ICE2024WIN';
             }
+            
+            // Копирование в буфер обмена
+            copyToClipboard(promoCode, this);
         });
     });
 }
 
-// Современный метод копирования в буфер обмена
-function copyTextToClipboard(text, buttonElement = null) {
+// Функция копирования в буфер обмена
+function copyToClipboard(text, buttonElement = null) {
     // Используем современный Clipboard API
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text)
             .then(() => {
-                // Успешное копирование
-                if (buttonElement) {
-                    updateButtonState(buttonElement, true);
-                }
+                showCopySuccess(buttonElement);
                 showNotification('Промокод скопирован: ' + text, 'success');
             })
             .catch(err => {
                 console.error('Ошибка при копировании: ', err);
-                fallbackCopyTextToClipboard(text, buttonElement);
+                fallbackCopy(text, buttonElement);
             });
     } else {
         // Фолбэк для старых браузеров
-        fallbackCopyTextToClipboard(text, buttonElement);
+        fallbackCopy(text, buttonElement);
     }
 }
 
-// Фолбэк метод для старых браузеров
-function fallbackCopyTextToClipboard(text, buttonElement = null) {
+// Фолбэк метод
+function fallbackCopy(text, buttonElement) {
     try {
         const textArea = document.createElement('textarea');
         textArea.value = text;
@@ -166,9 +129,7 @@ function fallbackCopyTextToClipboard(text, buttonElement = null) {
         document.body.removeChild(textArea);
         
         if (successful) {
-            if (buttonElement) {
-                updateButtonState(buttonElement, true);
-            }
+            showCopySuccess(buttonElement);
             showNotification('Промокод скопирован: ' + text, 'success');
         } else {
             throw new Error('Copy command failed');
@@ -176,69 +137,49 @@ function fallbackCopyTextToClipboard(text, buttonElement = null) {
     } catch (err) {
         console.error('Ошибка при копировании: ', err);
         showNotification('Не удалось скопировать. Скопируйте код вручную: ' + text, 'error');
-        
-        if (buttonElement) {
-            updateButtonState(buttonElement, false);
-        }
     }
 }
 
-// Обновление состояния кнопки
-function updateButtonState(button, success) {
-    const originalText = button.innerHTML;
-    const originalBg = button.style.background;
-    const originalShadow = button.style.boxShadow;
+// Показать успешное копирование
+function showCopySuccess(buttonElement) {
+    if (!buttonElement) return;
     
-    if (success) {
-        button.innerHTML = '✓ Скопировано!';
-        button.style.background = 'linear-gradient(90deg, #00ff00, #00cc00)';
-        button.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.5)';
-        
-        // Возвращаем исходное состояние через 2 секунды
-        setTimeout(() => {
-            button.innerHTML = originalText;
-            button.style.background = originalBg;
-            button.style.boxShadow = originalShadow;
-        }, 2000);
-    } else {
-        button.innerHTML = 'Ошибка копирования';
-        button.style.background = 'linear-gradient(90deg, #ff0000, #cc0000)';
-        button.style.boxShadow = '0 0 15px rgba(255, 0, 0, 0.5)';
-        
-        setTimeout(() => {
-            button.innerHTML = originalText;
-            button.style.background = originalBg;
-            button.style.boxShadow = originalShadow;
-        }, 3000);
-    }
+    const originalText = buttonElement.innerHTML;
+    const originalBg = buttonElement.style.background;
+    const originalShadow = buttonElement.style.boxShadow;
+    
+    buttonElement.innerHTML = '✓ Скопировано!';
+    buttonElement.style.background = 'linear-gradient(90deg, #00ff00, #00cc00)';
+    buttonElement.style.boxShadow = '0 0 20px rgba(0, 255, 0, 0.5)';
+    
+    setTimeout(() => {
+        buttonElement.innerHTML = originalText;
+        buttonElement.style.background = originalBg;
+        buttonElement.style.boxShadow = originalShadow;
+    }, 2000);
 }
 
 // Показать уведомление
 function showNotification(message, type = 'info') {
-    // Удаляем старое уведомление если есть
+    // Удаляем старое уведомление
     const oldNotification = document.querySelector('.custom-notification');
-    if (oldNotification) {
-        oldNotification.remove();
-    }
+    if (oldNotification) oldNotification.remove();
     
-    // Создаем новое уведомление
+    // Создаем новое
     const notification = document.createElement('div');
     notification.className = 'custom-notification';
     
     // Цвета в зависимости от типа
     let bgColor, textColor;
-    switch(type) {
-        case 'success':
-            bgColor = 'linear-gradient(90deg, #00cc00, #009900)';
-            textColor = '#ffffff';
-            break;
-        case 'error':
-            bgColor = 'linear-gradient(90deg, #ff3333, #cc0000)';
-            textColor = '#ffffff';
-            break;
-        default:
-            bgColor = 'linear-gradient(90deg, #00f3ff, #0088ff)';
-            textColor = '#0c1a2d';
+    if (type === 'success') {
+        bgColor = 'linear-gradient(90deg, #00cc00, #009900)';
+        textColor = '#ffffff';
+    } else if (type === 'error') {
+        bgColor = 'linear-gradient(90deg, #ff3333, #cc0000)';
+        textColor = '#ffffff';
+    } else {
+        bgColor = 'linear-gradient(90deg, #00f3ff, #0088ff)';
+        textColor = '#0c1a2d';
     }
     
     notification.innerHTML = `
@@ -255,7 +196,7 @@ function showNotification(message, type = 'info') {
             font-weight: 600;
             max-width: 400px;
             word-break: break-word;
-            animation: notificationSlideIn 0.3s ease forwards;
+            animation: notificationSlideIn 0.3s ease;
         ">
             ${message}
         </div>
@@ -265,7 +206,7 @@ function showNotification(message, type = 'info') {
     
     // Автоскрытие через 4 секунды
     setTimeout(() => {
-        notification.querySelector('div').style.animation = 'notificationSlideOut 0.3s ease forwards';
+        notification.querySelector('div').style.animation = 'notificationSlideOut 0.3s ease';
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.parentNode.removeChild(notification);
@@ -274,19 +215,46 @@ function showNotification(message, type = 'info') {
     }, 4000);
 }
 
+// Добавляем стили для анимаций
+if (!document.querySelector('#notification-styles')) {
+    const style = document.createElement('style');
+    style.id = 'notification-styles';
+    style.textContent = `
+        @keyframes notificationSlideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes notificationSlideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
 // =========== 3. ПЛАВНАЯ ПРОКРУТКА ===========
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            
-            // Пропускаем якоря без ID
             if (href === '#' || href === '#!') return;
             
             const targetElement = document.querySelector(href);
             if (targetElement) {
                 e.preventDefault();
-                
                 const headerHeight = document.querySelector('header')?.offsetHeight || 70;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
                 const offsetPosition = targetPosition - headerHeight;
@@ -302,9 +270,8 @@ function initSmoothScroll() {
 
 // =========== 4. АНИМАЦИИ ===========
 function initAnimations() {
-    // Функция для анимации при скролле
     const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.content-block, .step, .faq-item');
+        const elements = document.querySelectorAll('.content-block, .step, .faq-item, .tutorial-item');
         const windowHeight = window.innerHeight;
         
         elements.forEach(el => {
@@ -318,8 +285,8 @@ function initAnimations() {
         });
     };
     
-    // Устанавливаем начальное состояние
-    const animatedElements = document.querySelectorAll('.content-block, .step, .faq-item');
+    // Установка начального состояния
+    const animatedElements = document.querySelectorAll('.content-block, .step, .faq-item, .tutorial-item');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -330,36 +297,6 @@ function initAnimations() {
     // Запускаем анимацию
     animateOnScroll();
     window.addEventListener('scroll', animateOnScroll);
-    
-    // Добавляем стили для анимаций
-    if (!document.querySelector('#animation-styles')) {
-        const style = document.createElement('style');
-        style.id = 'animation-styles';
-        style.textContent = `
-            @keyframes notificationSlideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes notificationSlideOut {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
 }
 
 // =========== 5. ФИКСИРОВАННЫЙ ХЕДЕР ===========
@@ -372,33 +309,55 @@ function initFixedHeader() {
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        // Эффект при скролле вниз/вверх
         if (scrollTop > 100) {
             header.style.backgroundColor = 'rgba(10, 25, 47, 0.98)';
-            header.style.backdropFilter = 'blur(10px)';
+            header.style.backdropFilter = 'blur(15px)';
             header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
         } else {
             header.style.backgroundColor = 'rgba(10, 25, 47, 0.95)';
             header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
         }
         
-        // Скрытие/показ хедера при скролле
-        if (scrollTop > lastScrollTop && scrollTop > 200) {
-            // Скролл вниз - скрываем хедер
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            // Скролл вверх - показываем хедер
-            header.style.transform = 'translateY(0)';
-        }
-        
         lastScrollTop = scrollTop;
     });
 }
 
-// =========== 6. ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ===========
-// Инициализация всех интерактивных элементов
-function initAllInteractiveElements() {
-    // Добавляем обработчики для всех интерактивных элементов
+// =========== 6. ВИДЕО ПЛЕЙЕРЫ ===========
+function initVideoPlayers() {
+    // Запуск видео по клику на плейсхолдер
+    const videoPlaceholder = document.querySelector('.video-placeholder');
+    const videoIframe = document.querySelector('.video-wrapper iframe');
+    
+    if (videoPlaceholder && videoIframe) {
+        videoPlaceholder.addEventListener('click', function() {
+            // Заменяем src для запуска видео
+            let src = videoIframe.getAttribute('src');
+            if (src && !src.includes('autoplay=1')) {
+                src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
+                videoIframe.setAttribute('src', src);
+            }
+            
+            // Скрываем плейсхолдер
+            this.style.display = 'none';
+        });
+    }
+    
+    // Обработка миниатюр видео
+    document.querySelectorAll('.tutorial-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            if (!e.target.closest('.play-overlay')) return;
+            
+            const title = this.querySelector('h3').textContent;
+            const description = this.querySelector('p').textContent;
+            
+            showNotification('Видео "' + title + '" скоро будет доступно!', 'info');
+        });
+    });
+}
+
+// =========== 7. ИНТЕРАКТИВНЫЕ ЭЛЕМЕНТЫ ===========
+function initInteractiveElements() {
+    // Анимация кнопок при наведении
     document.querySelectorAll('.neon-button').forEach(button => {
         button.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-3px) scale(1.05)';
@@ -409,35 +368,37 @@ function initAllInteractiveElements() {
         });
     });
     
-    // Анимация для шагов
-    document.querySelectorAll('.step').forEach(step => {
-        step.addEventListener('mouseenter', function() {
+    // Анимация карточек
+    document.querySelectorAll('.step, .tutorial-item').forEach(card => {
+        card.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-10px)';
-            this.style.boxShadow = '0 15px 30px rgba(0, 243, 255, 0.3)';
+            this.style.boxShadow = '0 15px 30px rgba(0, 243, 255, 0.2)';
         });
         
-        step.addEventListener('mouseleave', function() {
+        card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = 'none';
         });
     });
+    
+    // Плавное появление элементов при загрузке
+    setTimeout(() => {
+        document.querySelectorAll('.content-block, .step').forEach((el, index) => {
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    }, 300);
 }
 
-// Вызываем при загрузке
-document.addEventListener('DOMContentLoaded', function() {
-    initAllInteractiveElements();
-});
-
-// Экспорт функций для глобального доступа (если нужно)
-window.CasinoScripts = {
-    copyPromoCode: function(promoCode) {
-        if (promoCode) {
-            copyTextToClipboard(promoCode);
-        } else {
-            const defaultPromo = document.querySelector('.promo-code-display')?.textContent || 'ICE2024WIN';
-            copyTextToClipboard(defaultPromo);
-        }
+// =========== 8. УТИЛИТЫ ===========
+// Глобальные функции для использования в консоли
+window.CasinoUtils = {
+    copyPromoCode: function() {
+        const promoElement = document.querySelector('.promo-code-display, #promoCode');
+        const promoCode = promoElement ? promoElement.textContent.trim() : 'ICE2024WIN';
+        copyToClipboard(promoCode);
     },
-    showNotification: showNotification,
-    initMobileMenu: initMobileMenu
+    showNotification: showNotification
 };
