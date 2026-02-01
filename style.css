@@ -11,51 +11,42 @@ body {
     color: #ffffff;
     background: linear-gradient(135deg, #0c1a2d 0%, #1a1a2e 100%);
     min-height: 100vh;
-    padding-top: 70px; /* Отступ для фиксированной шапки */
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 20px;
 }
 
-/* Хедер - КОМПАКТНЫЙ */
+/* Хедер */
 header {
-    background: rgba(10, 25, 47, 0.98);
-    backdrop-filter: blur(15px);
-    padding: 10px 0;
-    position: fixed;
+    background: rgba(10, 25, 47, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(0, 243, 255, 0.3);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-}
-
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    border-bottom: 2px solid #00f3ff;
 }
 
 .logo {
-    font-size: 20px; /* Уменьшен размер логотипа */
+    font-size: 28px;
     font-weight: 800;
     background: linear-gradient(90deg, #00f3ff, #0088ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
 }
 
-/* Гамбургер меню */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
 .mobile-menu-btn {
     display: none;
     flex-direction: column;
@@ -90,23 +81,19 @@ header {
     transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Навигация */
 .nav-links {
     display: flex;
+    gap: 30px;
     align-items: center;
-    gap: 15px; /* Уменьшен промежуток между ссылками */
-    transition: all 0.3s ease;
 }
 
 .nav-links a {
     color: #ffffff;
     text-decoration: none;
     font-weight: 600;
-    font-size: 14px; /* Уменьшен размер шрифта */
-    padding: 6px 12px; /* Уменьшен padding */
+    padding: 8px 16px;
     border-radius: 5px;
     transition: all 0.3s ease;
-    white-space: nowrap;
 }
 
 .nav-links a:hover {
@@ -114,66 +101,53 @@ header {
     color: #00f3ff;
 }
 
-.nav-links a.active {
-    background: rgba(0, 243, 255, 0.15);
-    color: #00f3ff;
-}
-
 /* Неоновые кнопки */
 .neon-button {
     display: inline-block;
-    padding: 10px 25px; /* Уменьшен padding */
+    padding: 15px 35px;
     background: linear-gradient(90deg, #00f3ff, #0088ff);
     color: #0c1a2d;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: 700;
-    font-size: 14px; /* Уменьшен размер шрифта */
+    font-size: 18px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
     border: none;
     cursor: pointer;
-    white-space: nowrap;
 }
 
 .neon-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
     color: #0c1a2d;
 }
 
 .neon-button-secondary {
     background: linear-gradient(90deg, #ff00ff, #ff0088);
-    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+.neon-button-secondary:hover {
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
 }
 
 /* Главный баннер */
 .main-banner {
-    background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
-                url('https://icefishing.vercel.app/ice-fishing-bg.jpg');
+    background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9));
     background-size: cover;
     background-position: center;
-    padding: 50px 20px; /* Уменьшен padding */
+    padding: 60px 0;
     text-align: center;
-    border-radius: 15px;
-    margin: 30px 0; /* Уменьшен margin */
+    border-radius: 20px;
+    margin: 40px 0;
     position: relative;
     overflow: hidden;
-}
-
-.main-banner h1 {
-    font-size: 32px; /* Уменьшен размер заголовка для мобильных */
-    margin-bottom: 15px;
-}
-
-.main-banner p {
-    font-size: 16px;
-    margin-bottom: 25px;
-    opacity: 0.9;
+    border: 1px solid rgba(0, 243, 255, 0.2);
 }
 
 .main-banner::before {
@@ -184,98 +158,300 @@ header {
     right: 0;
     bottom: 0;
     background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.main-banner h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #00f3ff, #0088ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.main-banner > p {
+    font-size: 20px;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+}
+
+/* Контейнер для видео */
+.video-container {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Соотношение сторон 16:9 */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(10, 25, 47, 0.9), rgba(26, 26, 46, 0.9));
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.video-placeholder:hover {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(10, 25, 47, 0.9));
+}
+
+.play-icon {
+    font-size: 70px;
+    color: #00f3ff;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+    transition: transform 0.3s ease;
+}
+
+.video-placeholder:hover .play-icon {
+    transform: scale(1.1);
+}
+
+.video-placeholder p {
+    font-size: 18px;
+    font-weight: 600;
+    max-width: 80%;
+    text-align: center;
+}
+
+.video-info {
+    padding: 20px;
+    background: rgba(0, 243, 255, 0.05);
+    border-top: 1px solid rgba(0, 243, 255, 0.2);
+}
+
+.video-info p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* Кнопки баннера */
+.banner-buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.banner-buttons .neon-button {
+    min-width: 200px;
 }
 
 /* Блоки с текстом */
 .content-block {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 25px; /* Уменьшен padding */
-    margin: 25px 0; /* Уменьшен margin */
+    border-radius: 15px;
+    padding: 40px;
+    margin: 40px 0;
     border: 1px solid rgba(0, 243, 255, 0.2);
 }
 
 .content-block h2 {
     color: #00f3ff;
-    margin-bottom: 20px;
-    font-size: 24px; /* Уменьшен размер заголовка */
+    margin-bottom: 25px;
+    font-size: 32px;
 }
 
 .content-block h3 {
     color: #ff00ff;
-    margin: 15px 0 10px 0;
-    font-size: 20px; /* Уменьшен размер подзаголовка */
+    margin: 20px 0 15px 0;
+    font-size: 24px;
 }
 
 /* Как играть блок */
 .how-to-play {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px; /* Уменьшен gap */
-    margin: 30px 0;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
 }
 
 .step {
     background: rgba(0, 243, 255, 0.1);
-    padding: 20px; /* Уменьшен padding */
-    border-radius: 12px;
+    padding: 30px;
+    border-radius: 15px;
     text-align: center;
     border: 1px solid rgba(0, 243, 255, 0.3);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .step:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 243, 255, 0.2);
 }
 
 .step-number {
     display: inline-block;
-    width: 40px; /* Уменьшен размер */
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background: linear-gradient(135deg, #00f3ff, #0088ff);
     border-radius: 50%;
-    line-height: 40px;
+    line-height: 50px;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #0c1a2d;
+}
+
+/* Видео туториалы */
+.video-tutorials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.tutorial-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tutorial-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 243, 255, 0.2);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.tutorial-item:hover .video-thumbnail img {
+    transform: scale(1.05);
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 243, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0c1a2d;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.tutorial-item:hover .play-overlay {
+    background: #00f3ff;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.tutorial-item h3 {
+    padding: 20px 20px 10px;
+    margin: 0;
+    color: #00f3ff;
     font-size: 20px;
+}
+
+.tutorial-item p {
+    padding: 0 20px 20px;
+    margin: 0;
+    opacity: 0.8;
+    font-size: 16px;
 }
 
 /* FAQ */
 .faq-item {
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 15px; /* Уменьшен padding */
-    margin: 12px 0;
-    border-left: 3px solid #00f3ff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    border-left: 4px solid #00f3ff;
+    transition: background 0.3s ease;
+}
+
+.faq-item:hover {
+    background: rgba(0, 243, 255, 0.05);
 }
 
 .faq-question {
     color: #00f3ff;
     font-weight: 600;
-    font-size: 18px; /* Уменьшен размер */
-    margin-bottom: 8px;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 /* Промокод блок */
 .promo-container {
     text-align: center;
-    padding: 40px 15px; /* Уменьшен padding */
+    padding: 60px 20px;
     background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
-    border-radius: 15px;
-    margin: 30px 0;
+    border-radius: 20px;
+    margin: 40px 0;
+    border: 1px solid rgba(0, 243, 255, 0.2);
 }
 
 .promo-code-display {
     background: rgba(0, 0, 0, 0.5);
     border: 2px solid #00f3ff;
-    border-radius: 8px;
-    padding: 20px;
-    font-size: 22px; /* Уменьшен размер шрифта */
+    border-radius: 10px;
+    padding: 25px;
+    font-size: 28px;
     font-weight: 700;
-    letter-spacing: 2px;
-    margin: 20px auto;
-    max-width: 450px;
+    letter-spacing: 3px;
+    margin: 30px auto;
+    max-width: 500px;
     color: #00f3ff;
     text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
     word-break: break-all;
@@ -285,41 +461,40 @@ header {
     background: linear-gradient(90deg, #ff00ff, #ff0088);
     color: white;
     border: none;
-    padding: 12px 30px; /* Уменьшен padding */
-    border-radius: 8px;
-    font-size: 16px; /* Уменьшен размер шрифта */
+    padding: 15px 40px;
+    border-radius: 10px;
+    font-size: 18px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 15px;
-    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
 }
 
 .copy-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
 }
 
 /* Футер */
 footer {
     background: rgba(10, 25, 47, 0.95);
-    padding: 30px 0; /* Уменьшен padding */
-    margin-top: 40px;
-    border-top: 1px solid rgba(0, 243, 255, 0.3);
+    padding: 40px 0;
+    margin-top: 60px;
+    border-top: 2px solid #00f3ff;
 }
 
 .footer-links {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Уменьшен gap */
+    gap: 30px;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .footer-links a {
     color: #ffffff;
     text-decoration: none;
-    font-size: 14px; /* Уменьшен размер шрифта */
     opacity: 0.8;
     transition: opacity 0.3s ease;
 }
@@ -332,22 +507,14 @@ footer {
 .copyright {
     text-align: center;
     opacity: 0.6;
-    font-size: 12px; /* Уменьшен размер шрифта */
-    margin-top: 15px;
+    font-size: 14px;
+    margin-top: 20px;
 }
 
-/* АДАПТИВНОСТЬ - МОБИЛЬНЫЕ УСТРОЙСТВА */
+/* Адаптивность */
 @media (max-width: 768px) {
-    body {
-        padding-top: 60px; /* Уменьшен отступ для шапки */
-    }
-    
-    header {
-        padding: 8px 0; /* Уменьшен padding */
-    }
-    
-    .logo {
-        font-size: 18px; /* Еще меньше логотип */
+    .container {
+        padding: 0 15px;
     }
     
     .mobile-menu-btn {
@@ -356,20 +523,22 @@ footer {
     
     .nav-links {
         position: fixed;
-        top: 60px;
+        top: 70px;
         left: 0;
         right: 0;
         background: rgba(10, 25, 47, 0.98);
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(15px);
         flex-direction: column;
         align-items: center;
         padding: 20px;
-        gap: 10px;
+        gap: 15px;
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
-        border-bottom: 1px solid rgba(0, 243, 255, 0.3);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease;
+        border-bottom: 2px solid #00f3ff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        z-index: 999;
     }
     
     .nav-links.active {
@@ -381,233 +550,94 @@ footer {
     .nav-links a {
         width: 100%;
         text-align: center;
-        padding: 12px 20px;
-        font-size: 16px;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.05);
-    }
-    
-    .neon-button {
-        width: 100%;
-        text-align: center;
-        padding: 12px 20px;
-        font-size: 16px;
+        padding: 15px;
+        font-size: 18px;
     }
     
     .main-banner {
-        padding: 30px 15px;
-        margin: 20px 0;
+        padding: 40px 20px;
     }
     
     .main-banner h1 {
-        font-size: 26px;
+        font-size: 32px;
     }
     
-    .main-banner p {
-        font-size: 15px;
+    .main-banner > p {
+        font-size: 18px;
     }
     
     .content-block {
-        padding: 20px;
-        margin: 20px 0;
+        padding: 25px;
     }
     
     .content-block h2 {
-        font-size: 22px;
+        font-size: 26px;
     }
     
-    .content-block h3 {
-        font-size: 18px;
+    .promo-code-display {
+        font-size: 22px;
+        padding: 20px;
+        letter-spacing: 2px;
     }
     
     .how-to-play {
         grid-template-columns: 1fr;
-        gap: 15px;
     }
     
-    .step {
-        padding: 15px;
+    .banner-buttons {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .banner-buttons .neon-button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .video-tutorials {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-info p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 22px;
+    }
+    
+    .neon-button {
+        padding: 12px 25px;
+        font-size: 16px;
     }
     
     .promo-code-display {
         font-size: 18px;
-        padding: 15px;
         letter-spacing: 1px;
     }
     
-    .copy-button {
-        padding: 12px 25px;
-        font-size: 15px;
+    .content-block {
+        padding: 20px;
+    }
+    
+    .main-banner h1 {
+        font-size: 28px;
+    }
+    
+    .video-placeholder p {
+        font-size: 16px;
+    }
+    
+    .play-icon {
+        font-size: 50px;
     }
     
     .footer-links {
         flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 15px;
     }
 }
-
-@media (max-width: 480px) {
-    body {
-        padding-top: 55px;
-    }
-    
-    .header-container {
-        padding: 0 10px;
-    }
-    
-    .logo {
-        font-size: 16px;
-    }
-    
-    .main-banner h1 {
-        font-size: 22px;
-    }
-    
-    .content-block h2 {
-        font-size: 20px;
-    }
-    
-    .promo-code-display {
-        font-size: 16px;
-        padding: 12px;
-    }
-    
-    .neon-button {
-        padding: 10px 15px;
-        font-size: 14px;
-    }
-}
-/* Таблицы */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-table th {
-    background: rgba(0, 243, 255, 0.2);
-    padding: 12px;
-    text-align: left;
-    font-weight: 600;
-    border: 1px solid rgba(0, 243, 255, 0.3);
-}
-
-table td {
-    padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-table tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.03);
-}
-
-table tr:hover {
-    background: rgba(0, 243, 255, 0.05);
-}
-
-@media (max-width: 768px) {
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-    
-    table th,
-    table td {
-        padding: 8px 12px;
-        font-size: 14px;
-    }
-}
-/* Стили для группы кнопок */
-.button-group {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-/* Убедитесь, что кнопки адаптивны */
-@media (max-width: 768px) {
-    .button-group {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .button-group .neon-button {
-        margin: 5px 0 !important;
-        width: 100%;
-        max-width: 300px;
-    }
-}
-
-/* Стили для промокод кнопок */
-.copy-promo-btn {
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-/* Анимации для уведомлений */
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideOut {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-}
-/* Анимации для уведомлений */
-@keyframes notificationSlideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes notificationSlideOut {
-    from {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-}
-
-/* Стили для уведомлений */
-.custom-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 99999;
-    animation: notificationSlideIn 0.3s ease forwards;
-}
-
-.custom-notification.slide-out {
-    animation: notificationSlideOut 0.3s ease forwards;
-}
-
-
-
-
