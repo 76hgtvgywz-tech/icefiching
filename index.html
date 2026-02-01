@@ -3,38 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSP для разрешения выполнения скриптов -->
+    <!-- CSP для разрешения выполнения скриптов и видео -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self'; 
         script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; 
         style-src 'self' https: 'unsafe-inline'; 
         font-src 'self' https: data:; 
         img-src 'self' https: data:; 
+        media-src 'self' https:;
         connect-src 'self' https:;
+        frame-src 'self' https: youtube.com www.youtube.com;
     ">
     <title>Ice Fishing (Айс фишинг) - Официальный сайт | Играйте с бонусами 500%</title>
-    <meta name="description" content="Играйте в слот Ice Fishing беспроигрышная рыбалка. Лучшие бонусы, высокая RTP, безопасная игра. Получите увеличенный бонус при регистрации!">
+    <meta name="description" content="Играйте в слот Ice Fishing беспроигрышная рыбалка с бонусами. Лучшие бонусы, высокая RTP, безопасная игра. Получите увеличенный бонус при регистрации!">
     <meta name="keywords" content="Ice Fishing слот, 1WIN казино, игровые автоматы, бонус за регистрацию, промокод 1WIN, онлайн казино Россия">
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="canonical" href="https://icefishingslot.vercel.app/">
+    <link rel="canonical" href="https://ваш-сайт.ru/">
 </head>
 <body>
     <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">ICE FISHING</a>
-            
-            <button class="mobile-menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <nav class="nav-links">
-                <a href="index.html" class="active">Главная</a>
-                <a href="ice-fishing-slot.html">Про слот</a>
-                <a href="promo-code.html">Промокод</a>
-                <a href="https://one-vv802.life/v3/aggressive-casino?p=ej7y" class="neon-button">Играть</a>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">ICE FISHING CASINO</a>
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="nav-links">
+                    <a href="index.html">Главная</a>
+                    <a href="ice-fishing-slot.html">Про слот Ice Fishing</a>
+                    <a href="promo-code.html">Промокод 1WIN</a>
+                    <a href="https://one-vv802.life/v3/aggressive-casino?p=ej7y" class="neon-button">Играть сейчас</a>
+                </div>
             </nav>
         </div>
     </header>
@@ -43,7 +45,31 @@
         <section class="main-banner">
             <h1>Ice Fishing - Холодные выигрыши в 1WIN</h1>
             <p>Эксклюзивный промокод для новых игроков дает увеличенный бонус на первый депозит!</p>
-            <a href="promo-code.html" class="neon-button neon-button-secondary">Получить промокод</a>
+            
+            <!-- Блок с видео -->
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Ice Fishing Gameplay - Обзор слота"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="video-placeholder">
+                        <div class="play-icon">▶</div>
+                        <p>Нажмите для просмотра геймплея Ice Fishing</p>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <p><strong>Обзор геймплея:</strong> Посмотрите, как играть в Ice Fishing, изучите бонусные раунды и стратегии выигрыша</p>
+                </div>
+            </div>
+            
+            <div class="banner-buttons">
+                <a href="promo-code.html" class="neon-button neon-button-secondary">Получить промокод</a>
+                <a href="https://one-vv802.life/v3/aggressive-casino?p=ej7y" class="neon-button">Играть сейчас</a>
+            </div>
         </section>
 
         <section class="content-block">
@@ -116,10 +142,8 @@
         <section class="promo-container">
             <h2>Эксклюзивный промокод 1WIN</h2>
             <p>Используйте наш промокод при регистрации для получения специальных бонусов</p>
-            <div class="promo-code-display">ICE2024WIN</div>
-<button class="copy-button" data-copy-promo="true">
-    Скопировать промокод
-</button>
+            <div class="promo-code-display" id="promoCode">ICE2024WIN</div>
+            <button class="copy-button" data-copy-promo="true">Скопировать промокод</button>
             <p style="margin-top: 20px; opacity: 0.8;">Промокод действителен для новых игроков при регистрации</p>
         </section>
 
@@ -138,27 +162,38 @@
             собственных средств. Особенно выгодно использовать наш промокод, который дает увеличенный бонус именно 
             для игроков в слоты.</p>
         </section>
-
+        
+        <!-- Дополнительный видео блок -->
         <section class="content-block">
-            <h2>Отзывы игроков о Ice Fishing в 1WIN</h2>
+            <h2>Видео-руководство по игре в Ice Fishing</h2>
+            <p>Посмотрите подробное руководство, чтобы освоить все тонкости игры и увеличить свои шансы на выигрыш:</p>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px;">
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; border-left: 3px solid #00f3ff;">
-                    <p style="font-style: italic; margin-bottom: 15px;">"Выиграл 50 000 рублей на третьем бонусном раунде! 
-                    Промокод ICE2024WIN действительно дает преимущество - получил +500% к депозиту."</p>
-                    <p style="color: #00f3ff; font-weight: 600;">Алексей, Москва</p>
+            <div class="video-tutorials">
+                <div class="tutorial-item">
+                    <div class="video-thumbnail">
+                        <div class="play-overlay">▶</div>
+                        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Стратегия выигрыша в Ice Fishing" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYwIiBoZWlnaHQ9IjMxNSIgdmlld0JveD0iMCAwIDU2MCAzMTUiIGZpbGw9IiMwYzFhMmQiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMwYzFhMmQiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Ik1vbnRzZXJyYXQiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JY2UgRmlzaGluZyBHYW1lcGxheTwvdGV4dD48L3N2Zz4='">
+                    </div>
+                    <h3>Стратегия выигрыша</h3>
+                    <p>Узнайте, как правильно делать ставки и увеличивать выигрыши</p>
                 </div>
                 
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; border-left: 3px solid #ff00ff;">
-                    <p style="font-style: italic; margin-bottom: 15px;">"Играю в Ice Fishing уже месяц, вывел более 100 000 рублей. 
-                    Отличный слот с понятной механикой. 1WIN выплачивает быстро, проблем не было."</p>
-                    <p style="color: #ff00ff; font-weight: 600;">Мария, Санкт-Петербург</p>
+                <div class="tutorial-item">
+                    <div class="video-thumbnail">
+                        <div class="play-overlay">▶</div>
+                        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Бонусные раунды Ice Fishing" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYwIiBoZWlnaHQ9IjMxNSIgdmlld0JveD0iMCAwIDU2MCAzMTUiIGZpbGw9IiMwYzFhMmQiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMwYzFhMmQiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Ik1vbnRzZXJyYXQiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5Cb251cyBSb3VuZHM8L3RleHQ+PC9zdmc+='">
+                    </div>
+                    <h3>Бонусные раунды</h3>
+                    <p>Как активировать и максимально использовать бонусные функции</p>
                 </div>
                 
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; border-left: 3px solid #00f3ff;">
-                    <p style="font-style: italic; margin-bottom: 15px;">"200 фриспинов по промокоду помогли освоить игру без риска. 
-                    Сейчас играю на реальные деньги, уже несколько раз попадал в бонусный раунд."</p>
-                    <p style="color: #00f3ff; font-weight: 600;">Дмитрий, Екатеринбург</p>
+                <div class="tutorial-item">
+                    <div class="video-thumbnail">
+                        <div class="play-overlay">▶</div>
+                        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Мобильная версия игры" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYwIiBoZWlnaHQ9IjMxNSIgdmlld0JveD0iMCAwIDU2MCAzMTUiIGZpbGw9IiMwYzFhMmQiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMwYzFhMmQiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9Ik1vbnRzZXJyYXQiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5Nb2JpbGUgVmVyc2lvbjwvdGV4dD48L3N2Zz4='">
+                    </div>
+                    <h3>Мобильная версия</h3>
+                    <p>Особенности игры на смартфонах и планшетах</p>
                 </div>
             </div>
         </section>
@@ -183,7 +218,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
