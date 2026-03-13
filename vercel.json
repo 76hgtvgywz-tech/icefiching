@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "icefishing.vercel.app"
+        }
+      ],
+      "destination": "icefishing1.vercel.app/$1",
+      "permanent": true
+    }
+  ]
+}
